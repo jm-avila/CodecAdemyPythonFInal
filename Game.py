@@ -1,21 +1,28 @@
+import sys
+
 class Game:
     name = "unknown"
     ai_name = "Mr Robot"
+
+    def handleExitStr(self, str):
+        if(str.lower() == "exit"):
+            sys.exit()
 
     def handleStrInput(self, question):
         print(question)
         userInput = input()
         if (len(userInput) == 0):
             return self.handleStrInput(question)
+        self.handleExitStr(userInput)
         return userInput
 
     def handleNumInput(self, question):
         print(question)
         int = "Input a number from 1 - 10"
-        print(int)
         userInput = input()
         if (len(userInput) == 0):
             userInput = self.handleNumInput(question)
+        self.handleExitStr(userInput)
         try:
             userInput = float(userInput)
         except:
@@ -36,6 +43,7 @@ class Game:
             return False
         if (len(userInput) == 0):
             print("No input was provided!!!")
+        self.handleExitStr(userInput)
         return self.handleBoolInput(question)
 
     def greet(self):
@@ -49,9 +57,8 @@ class Game:
         else:
             print("Better catch up")
         print("Let's Start!!!")
-        self.question1()
 
-    def question1(self):
+    def start(self):
         ans = self.handleBoolInput("Do you know me?")
         if (ans):
             self.sayMyName()
